@@ -62,7 +62,12 @@ def get_system_prompt(channel):
     
     if channel == "Suara Filsuf":
         rules = """
-        ATURAN SUARA FILSUF: Bahasa reflektif. Wajib sebut nama tokoh jika relevan. Pakai struktur 'X, Tapi Y'. LARANGAN: JANGAN tulis nama 'Dr. Fahruddin Faiz' di judul/deskripsi manapun. Batas 70 karakter.
+        ATURAN SUARA FILSUF: Bahasa harus merenungkan, bukan menggurui. Targetkan rasa lelah batin penonton usia 20-40 tahun.
+        - Wajib sebut nama tokoh jika relevan.
+        - Pakai struktur 'X, Tapi Y'.
+        - GAYA BAHASA: Gunakan diksi emosional sehari-hari (hampa, gelisah, capek, lelah). DILARANG KERAS menggunakan bahasa kaku/akademis seperti 'Panduan Hidup', 'Fatwakan Kebenaran', atau 'Realitas Sulit'. Buat judul yang seolah membaca pikiran penonton.
+        - LARANGAN: JANGAN tulis nama 'Dr. Fahruddin Faiz' di judul/deskripsi manapun. 
+        - Batas maksimal 70 karakter.
         """
     elif channel == "Tutur Kyai":
         rules = """
