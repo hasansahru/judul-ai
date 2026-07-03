@@ -83,8 +83,15 @@ if st.button("Optimalkan Video Ini 🚀", use_container_width=True):
     else:
         with st.spinner("Menganalisis DNA Channel dan meracik SEO..."):
             try:
-                model = genai.GenerativeModel('gemini-pro')
-                full_prompt = f"{get_system_prompt(channel_choice)}\n\nJudul Lama: {old_title}\n{prompt_instruction} {video_content}"
+# 1. Tarik semua daftar model yang diizinkan oleh API Key saat ini
+available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+
+# 2. Prioritaskan model '1.5-flash' (paling stabil & cepat). Jika tidak ada, gunakan model pertama yang tersedia.
+model_name = next((m for m in available_models if '1.5-flash' in m), available_models[0])
+
+# 3. Eksekusi menggunakan model yang pasti valid tersebut
+model = genai.GenerativeModel(model_name)
+full_prompt = f"{get_system_prompt(channel_choice)}\n\nJudul Lama: {old_title}\n{prompt_instruction} {video_content}"
                 
                 response = model.generate_content(full_prompt)
                 hasil = response.text
