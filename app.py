@@ -83,7 +83,7 @@ if st.button("Optimalkan Video Ini 🚀", use_container_width=True):
     else:
         with st.spinner("Menganalisis DNA Channel dan meracik SEO..."):
             try:
-                model = genai.GenerativeModel('gemini-1.5-pro')
+                model = genai.GenerativeModel('gemini-pro')
                 full_prompt = f"{get_system_prompt(channel_choice)}\n\nJudul Lama: {old_title}\n{prompt_instruction} {video_content}"
                 
                 response = model.generate_content(full_prompt)
