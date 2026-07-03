@@ -1,0 +1,14 @@
+# Mengabaikan file data analytics YouTube
+*.csv
+*.xlsx
+
+# Lingkungan Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Pengaturan spesifik OS dan Streamlit
+.DS_Store
+.streamlit/
