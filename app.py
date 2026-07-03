@@ -70,48 +70,4 @@ def get_system_prompt(channel):
         """
     else:
         rules = """
-        ATURAN NALAR SENYAP: Bahasa personal ('kamu'). Validasi perasaan lelah/overthinking. Pakai elipsis (...). LARANGAN: Jangan beri diagnosis klinis.
-        """
-    return base_instruction + "\n" + rules
-
-# --- EKSEKUSI AI & PARSING HASIL ---
-if st.button("Optimalkan Video Ini 🚀", use_container_width=True):
-    if not api_key:
-        st.error("Silakan masukkan API Key di bilah samping terlebih dahulu.")
-    elif not old_title or not video_content:
-        st.warning("Judul Lama dan Materi Konten wajib diisi.")
-    else:
-        with st.spinner("Menganalisis DNA Channel dan meracik SEO..."):
-            try:
-# 1. Tarik semua daftar model yang diizinkan oleh API Key saat ini
-available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-
-# 2. Prioritaskan model '1.5-flash' (paling stabil & cepat). Jika tidak ada, gunakan model pertama yang tersedia.
-model_name = next((m for m in available_models if '1.5-flash' in m), available_models[0])
-
-# 3. Eksekusi menggunakan model yang pasti valid tersebut
-model = genai.GenerativeModel(model_name)
-full_prompt = f"{get_system_prompt(channel_choice)}\n\nJudul Lama: {old_title}\n{prompt_instruction} {video_content}"
-                
-                response = model.generate_content(full_prompt)
-                hasil = response.text
-                
-                # Parsing hasil menggunakan Regex
-                judul_match = re.search(r'<JUDUL>(.*?)</JUDUL>', hasil, re.DOTALL)
-                thumb_match = re.search(r'<THUMBNAIL>(.*?)</THUMBNAIL>', hasil, re.DOTALL)
-                seo_match = re.search(r'<SEO>(.*?)</SEO>', hasil, re.DOTALL)
-                
-                st.success("✅ Optimasi Selesai!")
-                
-                # UI Tabs untuk Scannability
-                tab1, tab2, tab3 = st.tabs(["🎣 Hook & Judul", "🖼️ Arahan Thumbnail", "📝 SEO & Metadata"])
-                
-                with tab1:
-                    st.markdown(judul_match.group(1).strip() if judul_match else "Gagal memuat bagian judul.")
-                with tab2:
-                    st.markdown(thumb_match.group(1).strip() if thumb_match else "Gagal memuat bagian thumbnail.")
-                with tab3:
-                    st.markdown(seo_match.group(1).strip() if seo_match else "Gagal memuat bagian SEO.")
-                    
-            except Exception as e:
-                st.error(f"Terjadi kesalahan: {e}")
+        ATURAN NALAR SENYAP: Bahasa personal
